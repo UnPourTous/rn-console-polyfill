@@ -23,14 +23,14 @@ const consoleMethod = [
   'timeStamp'
 ]
 
-const polyfillConsole = () => {
+const polyfillConsole = (showWarning) => {
   consoleMethod.forEach(key => {
     if (!console['groupCollapsed'] && console['group']) {
       console['groupCollapsed'] = console['group']
     }
     if (!console[key]) {
       console[key] = () => {
-        console.warn(`console.${key} not supported in this RN version.`)
+        showWarning && console.warn(`console.${key} not supported in this RN version.`)
       }
     }
   })
